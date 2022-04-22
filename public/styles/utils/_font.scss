@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Menlo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Menlo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Menlo';
+  font-style: bold;
+  font-weight: 700;
+  src: url('/fonts/Menlo-Bold.ttf') format('truetype');
+}
+html {
+  font-size: 16px;
+  font-family: 'Menlo';
+}
+@media screen and (max-width: 500px) {
+  body,
+  html {
+    font-size: 14px;
+  }
+}
