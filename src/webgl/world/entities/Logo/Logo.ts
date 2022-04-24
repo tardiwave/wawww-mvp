@@ -23,9 +23,6 @@ export default class Logo {
   private logo: Group | null = null;
   private fillMaterial: ShaderMaterial | null = null;
   private wireframeMaterial: ShaderMaterial | null = null;
-  private r: number;
-  private g: number;
-  private b: number;
   private currentColor: "white" | "pink" = "white";
 
   constructor() {
