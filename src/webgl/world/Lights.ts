@@ -1,5 +1,5 @@
-import { AmbientLight, DirectionalLight, Scene } from 'three';
-import Experience from '../Experience';
+import { AmbientLight, DirectionalLight, Scene } from "three";
+import Experience from "../Experience";
 
 export default class Lights {
   private experience: Experience = new Experience();
@@ -7,18 +7,18 @@ export default class Lights {
   private sunLight: DirectionalLight | null = null;
   private ambientLight: AmbientLight | null = null;
   constructor() {
-    this.setSunLight();
-    this.setAmbientLight();
+    // this.setSunLight();
+    // this.setAmbientLight();
   }
 
   setSunLight() {
-    this.sunLight = new DirectionalLight('#ffffff', 4);
-    this.sunLight.position.set(3.5, 2, -1.25);
+    this.sunLight = new DirectionalLight("#ffffff", 4);
+    this.sunLight.position.set(0, 2, 0);
     this.scene.add(this.sunLight);
   }
 
   setAmbientLight() {
-    this.ambientLight = new AmbientLight(0x404040);
+    this.ambientLight = new AmbientLight(0xcccccc, 0.4);
     this.scene.add(this.ambientLight);
   }
 

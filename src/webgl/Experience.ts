@@ -1,15 +1,16 @@
-import { Scene } from 'three';
-import { TCanvas } from '../models/global';
-import { ISource } from '../models/sources';
+import { Scene, Color } from "three";
+import { TCanvas } from "../models/global";
+import { ISource } from "../models/sources";
 
-import Sizes from '../utils/Sizes';
-import Time from '../utils/Time';
-import Camera from './Camera';
-import Renderer from './Renderer';
-import World from './world/World';
-import Sources from './world/sources';
-import Loaders from '../utils/Loaders';
-import Debug from '../utils/debug/Debug';
+import Sizes from "../utils/Sizes";
+import Time from "../utils/Time";
+import Camera from "./Camera";
+import Renderer from "./Renderer";
+import World from "./world/World";
+import Sources from "./world/sources";
+import Loaders from "../utils/Loaders";
+import Debug from "../utils/debug/Debug";
+import Mouse from "../utils/Mouse";
 
 declare global {
   interface Window {
@@ -26,10 +27,11 @@ export default class Experience {
   public sizes: Sizes | null = null;
   public time: Time | null = null;
   public debug: Debug | null = null;
+  public mouse: Mouse | null = null;
 
   public scene: Scene | null = null;
   public camera: Camera | null = null;
-  private renderer: Renderer | null = null;
+  public renderer: Renderer | null = null;
   private world?: World | null = null;
 
   constructor(_canvas?: HTMLCanvasElement) {
@@ -46,37 +48,38 @@ export default class Experience {
     this.sources = Sources;
     this.loaders = new Loaders(this.sources);
     this.sizes = new Sizes();
+    this.mouse = new Mouse();
     this.time = new Time();
     this.debug = new Debug();
     this.scene = new Scene();
+    this.scene.background = new Color(0x000000);
+    // this.scene.background = new Color(0xfe2458);
+    // this.scene.background = new Color(0xffffff);
     this.camera = new Camera();
     this.renderer = new Renderer();
     this.world = new World();
 
     this.loaders.startLoading();
+    this.sizes?.setViewSizeAtDepth();
 
     // Events
-    this.sizes.on('resize', () => this.resize());
-    this.time.on('tick', () => {
+    this.time.on("tick", () => {
       this.update();
     });
   }
 
-  resize() {
-    this.camera?.resize();
-    this.renderer?.resize();
-  }
-
   update() {
+    this.world?.update();
     this.camera?.update();
     this.renderer?.update();
     this.debug?.update();
   }
 
   destroy() {
-    this.sizes?.off('resize');
+    this.sizes?.off("resize");
     this.sizes?.destroy();
-    this.time?.off('tick');
+    this.time?.off("tick");
+    this.mouse?.destroy();
     this.time?.destroy();
     this.camera?.destroy();
     this.renderer?.destroy();

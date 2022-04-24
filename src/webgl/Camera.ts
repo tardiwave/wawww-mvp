@@ -1,9 +1,9 @@
-import { Scene, PerspectiveCamera, Camera as threeCamera } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { TCanvas } from '../models/global';
+import { Scene, PerspectiveCamera, Camera as threeCamera } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { TCanvas } from "../models/global";
 
-import Sizes from '../utils/Sizes';
-import Experience from './Experience';
+import Sizes from "../utils/Sizes";
+import Experience from "./Experience";
 
 export default class Camera {
   private experience: Experience = new Experience();
@@ -23,18 +23,19 @@ export default class Camera {
       35,
       this.sizes.width / this.sizes.height,
       0.1,
-      100,
+      100
     );
-    this.instance.position.set(6, 4, 8);
+    this.instance.position.set(0, 2 * Math.PI, 0);
     this.scene.add(this.instance);
   }
 
   setOrbitControls() {
     this.controls = new OrbitControls(
       this.instance as threeCamera,
-      this.canvas as HTMLCanvasElement,
+      this.canvas as HTMLCanvasElement
     );
     this.controls.enableDamping = true;
+    this.controls.enabled = false;
   }
 
   resize() {

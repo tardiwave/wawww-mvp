@@ -6,7 +6,7 @@ import EventEmitter from './EventEmitter';
 
 export default class Loaders extends EventEmitter {
   private sources: ISource[];
-  private items: any;
+  public items: any;
   private toLoad: number;
   private loaded: number;
   private loaders: ILoaders | null = null;

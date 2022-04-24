@@ -1,11 +1,11 @@
-import { ISource } from '../../models/sources';
+import { ISource } from "../../models/sources";
 
 const Sources: ISource[] = [
-//   {
-//     name: 'Name',
-//     type: 'Texture',
-//     path: ['test/source1', 'test/source2'],
-//   },
+  {
+    name: "logo",
+    type: "gltfModel",
+    path: ["/models/WAWWW-wireframe.glb"],
+  },
 ];
 
 export default Sources;

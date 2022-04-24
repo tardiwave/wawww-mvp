@@ -34,3 +34,4 @@ coverage
 
 # macos file attributes
 .DS_Store
+public/models
