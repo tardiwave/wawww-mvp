@@ -75,26 +75,7 @@ export default class Logo {
 
   setScale() {
     const w = window.innerWidth;
-    if (!isMobile()) {
-      if (w > 300) {
-        this.scale = 0.2;
-      }
-      if (w > 450) {
-        this.scale = 0.3;
-      }
-      if (w > 750) {
-        this.scale = 0.5;
-      }
-      if (w > 1100) {
-        this.scale = 0.7;
-      }
-      if (w > 1400) {
-        this.scale = 0.8;
-      }
-      if (w > 1600) {
-        this.scale = 0.9;
-      }
-    } else {
+    if (isMobile() || window.innerWidth < 1000) {
       if (w > 300) {
         this.scale = 1.3;
       }
@@ -113,6 +94,25 @@ export default class Logo {
       if (w > 1600) {
         this.scale = 2.0;
       }
+    } else {
+      if (w > 300) {
+        this.scale = 0.2;
+      }
+      if (w > 450) {
+        this.scale = 0.3;
+      }
+      if (w > 750) {
+        this.scale = 0.5;
+      }
+      if (w > 1100) {
+        this.scale = 0.7;
+      }
+      if (w > 1400) {
+        this.scale = 0.8;
+      }
+      if (w > 1600) {
+        this.scale = 0.9;
+      }
     }
 
     if (this.isEntryFinished) {
@@ -121,22 +121,42 @@ export default class Logo {
   }
 
   entry() {
-    anime({
-      targets: this.logo?.position,
-      y: [-3, 0],
-      duration: 200,
-      easing: "easeInOutQuad",
-      complete: () => (this.isEntryFinished = true),
-    });
-    anime({
-      targets: this.logo?.scale,
-      x: [0, this.scale],
-      y: [0, this.scale],
-      z: [0, this.scale],
-      duration: 2000,
-      easing: "easeInOutQuad",
-      complete: () => (this.isEntryFinished = true),
-    });
+    if (isMobile() || window.innerWidth < 1000) {
+      anime({
+        targets: this.logo?.position,
+        x: [-8, 0],
+        z: [12, 0],
+        duration: 2000,
+        easing: "easeInOutQuad",
+        complete: () => (this.isEntryFinished = true),
+      });
+      anime({
+        targets: this.logo?.scale,
+        x: [this.scale, this.scale],
+        y: [this.scale, this.scale],
+        z: [this.scale, this.scale],
+        duration: 2000,
+        easing: "easeInOutQuad",
+        complete: () => (this.isEntryFinished = true),
+      });
+    } else {
+      anime({
+        targets: this.logo?.position,
+        y: [-3, 0],
+        duration: 200,
+        easing: "easeInOutQuad",
+        complete: () => (this.isEntryFinished = true),
+      });
+      anime({
+        targets: this.logo?.scale,
+        x: [0, this.scale],
+        y: [0, this.scale],
+        z: [0, this.scale],
+        duration: 2000,
+        easing: "easeInOutQuad",
+        complete: () => (this.isEntryFinished = true),
+      });
+    }
   }
 
   setMesh() {
@@ -160,7 +180,7 @@ export default class Logo {
       });
       this.logo.position.set(0, -3, 0);
       this.logo.scale.set(0, 0, 0);
-      if (isMobile()) {
+      if (isMobile() || window.innerWidth < 1000) {
         this.logo.rotation.y = 1;
       }
       this.scene.add(this.logo);
@@ -224,7 +244,7 @@ export default class Logo {
       const coef = 100000;
       this.logo.rotation.x +=
         ((this.mouse.webglX * coef) / 2 - this.logo?.rotation.x) * 0.05;
-      if (isMobile()) {
+      if (isMobile() || window.innerWidth < 1000) {
         this.logo.rotation.y +=
           ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) * 0.05;
       } else {
