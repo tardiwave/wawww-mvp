@@ -10,11 +10,13 @@ import fillFragment from "./shaders/fill/fragment.glsl?raw";
 import Time from "../../../../utils/Time";
 import Mouse from "../../../../utils/Mouse";
 import anime from "animejs";
+import Sizes from "../../../../utils/Sizes";
 
 export default class Logo {
   private experience: Experience = new Experience();
   private scene: Scene = this.experience.scene as Scene;
   private time: Time = this.experience.time as Time;
+  private sizes: Sizes = this.experience.sizes as Sizes;
   private mouse: Mouse = this.experience.mouse as Mouse;
   private loaders: Loaders = this.experience.loaders as Loaders;
   private debug: Debug = this.experience.debug as Debug;
@@ -24,15 +26,20 @@ export default class Logo {
   private fillMaterial: ShaderMaterial | null = null;
   private wireframeMaterial: ShaderMaterial | null = null;
   private currentColor: "white" | "pink" = "white";
+  private isEntryFinished = false;
+  private scale = 20;
 
   constructor() {
     if (this.debug.active) {
       this.debugFolder = this.debug.ui!.addFolder("Logo");
     }
+    this.setScale();
     this.setTextures();
     this.setMaterial();
     this.setMesh();
     this.setDebug();
+    this.entry();
+    this.sizes.on("resize", () => this.resize());
     // this.mouse.on("mousedown", () => this.switchColor());
   }
   setMaterial() {
@@ -65,6 +72,51 @@ export default class Logo {
     });
   }
 
+  setScale() {
+    const w = window.innerWidth;
+    if (w > 300) {
+      this.scale = 0.2;
+    }
+    if (w > 450) {
+      this.scale = 0.3;
+    }
+    if (w > 750) {
+      this.scale = 0.5;
+    }
+    if (w > 1100) {
+      this.scale = 0.7;
+    }
+    if (w > 1400) {
+      this.scale = 0.8;
+    }
+    if (w > 1600) {
+      this.scale = 0.9;
+    }
+
+    if (this.isEntryFinished) {
+      this.logo?.scale.set(this.scale, this.scale, this.scale);
+    }
+  }
+
+  entry() {
+    anime({
+      targets: this.logo?.position,
+      y: [-3, 0],
+      duration: 200,
+      easing: "easeInOutQuad",
+      complete: () => (this.isEntryFinished = true),
+    });
+    anime({
+      targets: this.logo?.scale,
+      x: [0, this.scale],
+      y: [0, this.scale],
+      z: [0, this.scale],
+      duration: 2000,
+      easing: "easeInOutQuad",
+      complete: () => (this.isEntryFinished = true),
+    });
+  }
+
   setMesh() {
     this.logo = new Group();
     this.model = this.loaders.items["logo"];
@@ -84,6 +136,8 @@ export default class Logo {
         });
         if (this.logo) this.logo.add(mesh);
       });
+      this.logo.position.set(0, -3, 0);
+      this.logo.scale.set(0, 0, 0);
       this.scene.add(this.logo);
     }
   }
@@ -117,7 +171,7 @@ export default class Logo {
         }
       });
     }
-    if (this.logo) {
+    if (this.logo && this.isEntryFinished) {
       const coef = 100000;
       this.logo.rotation.x +=
         ((this.mouse.webglX * coef) / 2 - this.logo?.rotation.x) * 0.05;
@@ -137,7 +191,7 @@ export default class Logo {
       g: 1.0,
       b: 1.0,
     };
-    const duration =  700;
+    const duration = 700;
     if (this.currentColor === "white") {
       this.currentColor = "pink";
       this.logo?.traverse((mesh) => {
@@ -184,4 +238,8 @@ export default class Logo {
   }
 
   destroy() {}
+
+  resize() {
+    this.setScale();
+  }
 }

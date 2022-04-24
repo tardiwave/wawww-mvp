@@ -4,7 +4,7 @@ const Sources: ISource[] = [
   {
     name: "logo",
     type: "gltfModel",
-    path: ["/models/WAWWW-wireframe.glb"],
+    path: ["/models/WAWWW-wireframe.glb?url"],
   },
 ];
 

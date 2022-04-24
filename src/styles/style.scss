@@ -1,6 +1,7 @@
 @import "./fonts.module.scss";
 
 $color: #fe2458;
+$padding: 40px;
 
 *,
 *::before,
@@ -8,9 +9,6 @@ $color: #fe2458;
   // user-select: none;
   box-sizing: border-box;
   // cursor: none; // si cursor custom
-}
-html {
-  font-size: 16px;
 }
 
 ::-webkit-scrollbar {
@@ -21,7 +19,10 @@ html {
   background-color: $color;
 }
 
-body {
+body,
+html {
+  font-size: 16px;
+  margin: 0;
   padding: 0;
   overflow: hidden;
   min-height: 100vh;
@@ -103,48 +104,130 @@ body {
   top: 0;
   left: 0;
 }
-
 .layout {
   position: absolute;
   z-index: 2;
   color: white !important;
   font-family: "Degular";
   font-size: 1rem;
-  $padding: 40px;
-  &.logo {
+}
+
+.socials {
+  display: flex;
+  bottom: $padding;
+  right: $padding;
+  .socialHide {
+    display: flex;
+    color: white !important;
+    &::before {
+      content: "|";
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+  .social {
+    padding-top: 21px;
+    height: 21px;
+    max-height: 21px;
+    color: white !important;
+    display: flex;
+    flex-direction: column;
+  }
+  .twitter {
+    &::after {
+      content: "Twitter";
+    }
+  }
+  .insta {
+    &::after {
+      content: "Instagram";
+    }
+  }
+  .linkedin {
+    &::after {
+      content: "LinkedIn";
+    }
+  }
+  .fs {
+    &::before {
+      content: "";
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+}
+.mailHide {
+  bottom: $padding;
+  left: $padding;
+  overflow: hidden;
+  height: 21px;
+  padding-top: 21px;
+}
+.WUCHide {
+  top: $padding;
+  right: $padding;
+  overflow: hidden;
+  height: 21px;
+  padding-top: 21px;
+}
+.logoHide {
+  top: $padding;
+  left: $padding;
+  overflow: hidden;
+  height: 21px;
+  width: 160px;
+  padding-top: 21px;
+  .logo {
     opacity: 1 !important;
-    top: $padding;
-    left: $padding;
   }
-  &.WUC {
-    top: $padding;
-    right: $padding;
+}
+.socialHide {
+  overflow: hidden;
+}
+.socialHideSeparatorCont {
+  position: relative;
+  .socialHideSeparator {
+    left: 5px;
+    position: absolute;
+    height: 21px;
+    width: 11px;
+    background-color: black;
   }
-  &.email {
-    bottom: $padding;
-    left: $padding;
-  }
-  &.socials {
-    bottom: $padding;
-    right: $padding;
-    .social {
-      color: white !important;
-      transform: translateY(63px);
-      &::before {
-        content: "|";
-        margin-left: 10px;
-        margin-right: 10px;
-      }
-    }
-    .fs {
-      &::before {
-        content: "";
-        margin-left: 0px;
-        margin-right: 0px;
-      }
+}
+.divCont {
+  transition-duration: 0.7s;
+  transition-timing-function: ease-in-out;
+}
+.socialHide {
+  &:hover {
+    .divCont {
+      transform: translateY(-42px) !important;
+      background-color: red;
     }
   }
-  .spanHide{
-    overflow: hidden;
+}
+.mobileMail {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .socialHide {
+    &::before {
+      display: none;
+    }
+  }
+  .socialHideSeparator {
+    display: none;
+  }
+  .socials {
+    flex-direction: column;
+  }
+  .WUC {
+    display: none;
+  }
+  .email {
+    display: none;
+  }
+  .mobileMail {
+    display: block;
   }
 }
