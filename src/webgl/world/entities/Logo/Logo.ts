@@ -96,22 +96,22 @@ export default class Logo {
       }
     } else {
       if (w > 300) {
-        this.scale = 0.3;
+        this.scale = 1.3;
       }
       if (w > 450) {
-        this.scale = 0.4;
+        this.scale = 1.4;
       }
       if (w > 750) {
-        this.scale = 0.6;
+        this.scale = 1.6;
       }
       if (w > 1100) {
-        this.scale = 0.8;
+        this.scale = 1.8;
       }
       if (w > 1400) {
-        this.scale = 0.9;
+        this.scale = 1.9;
       }
       if (w > 1600) {
-        this.scale = 1.0;
+        this.scale = 2.0;
       }
     }
 
@@ -160,6 +160,9 @@ export default class Logo {
       });
       this.logo.position.set(0, -3, 0);
       this.logo.scale.set(0, 0, 0);
+      if (isMobile()) {
+        this.logo.rotation.y = 1;
+      }
       this.scene.add(this.logo);
     }
   }
@@ -180,6 +183,30 @@ export default class Logo {
           .min(0)
           .max(5)
           .step(1);
+        this.debugFolder
+          ?.add(this.logo.rotation, "z")
+          .name("RotateZ")
+          .min(0)
+          .max(5)
+          .step(1);
+        this.debugFolder
+          ?.add(this.logo.scale, "x")
+          .name("ScaleX")
+          .min(0)
+          .max(5)
+          .step(1);
+        this.debugFolder
+          ?.add(this.logo.scale, "y")
+          .name("ScaleY")
+          .min(0)
+          .max(5)
+          .step(1);
+        this.debugFolder
+          ?.add(this.logo.scale, "z")
+          .name("ScaleZ")
+          .min(0)
+          .max(5)
+          .step(1);
       }
     }
   }
@@ -197,8 +224,13 @@ export default class Logo {
       const coef = 100000;
       this.logo.rotation.x +=
         ((this.mouse.webglX * coef) / 2 - this.logo?.rotation.x) * 0.05;
-      this.logo.rotation.y +=
-        ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.05;
+      if (isMobile()) {
+        this.logo.rotation.y +=
+          ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) * 0.05;
+      } else {
+        this.logo.rotation.y +=
+          ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.05;
+      }
     }
   }
 
