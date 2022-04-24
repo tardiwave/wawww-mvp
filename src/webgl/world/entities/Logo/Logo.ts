@@ -11,6 +11,7 @@ import Time from "../../../../utils/Time";
 import Mouse from "../../../../utils/Mouse";
 import anime from "animejs";
 import Sizes from "../../../../utils/Sizes";
+import isMobile from "../../../../utils/mobileDetect";
 
 export default class Logo {
   private experience: Experience = new Experience();
@@ -74,23 +75,44 @@ export default class Logo {
 
   setScale() {
     const w = window.innerWidth;
-    if (w > 300) {
-      this.scale = 0.2;
-    }
-    if (w > 450) {
-      this.scale = 0.3;
-    }
-    if (w > 750) {
-      this.scale = 0.5;
-    }
-    if (w > 1100) {
-      this.scale = 0.7;
-    }
-    if (w > 1400) {
-      this.scale = 0.8;
-    }
-    if (w > 1600) {
-      this.scale = 0.9;
+    if (!isMobile()) {
+      if (w > 300) {
+        this.scale = 0.2;
+      }
+      if (w > 450) {
+        this.scale = 0.3;
+      }
+      if (w > 750) {
+        this.scale = 0.5;
+      }
+      if (w > 1100) {
+        this.scale = 0.7;
+      }
+      if (w > 1400) {
+        this.scale = 0.8;
+      }
+      if (w > 1600) {
+        this.scale = 0.9;
+      }
+    } else {
+      if (w > 300) {
+        this.scale = 0.3;
+      }
+      if (w > 450) {
+        this.scale = 0.4;
+      }
+      if (w > 750) {
+        this.scale = 0.6;
+      }
+      if (w > 1100) {
+        this.scale = 0.8;
+      }
+      if (w > 1400) {
+        this.scale = 0.9;
+      }
+      if (w > 1600) {
+        this.scale = 1.0;
+      }
     }
 
     if (this.isEntryFinished) {

@@ -27,6 +27,9 @@ html {
   overflow: hidden;
   min-height: 100vh;
   text-rendering: optimizeSpeed;
+  @media screen and (max-width: 1000px) {
+    font-size: 22px;
+  }
 }
 
 body,
@@ -132,6 +135,11 @@ body {
     color: white !important;
     display: flex;
     flex-direction: column;
+    @media screen and (max-width: 1000px) {
+      padding-top: 27px;
+      height: 27px;
+      max-height: 27px;
+    }
   }
   .twitter {
     &::after {
@@ -162,6 +170,10 @@ body {
   overflow: hidden;
   height: 21px;
   padding-top: 21px;
+  @media screen and (max-width: 1000px) {
+    height: 27px;
+    padding-top: 27px;
+  }
 }
 .WUCHide {
   top: $padding;
@@ -169,6 +181,10 @@ body {
   overflow: hidden;
   height: 21px;
   padding-top: 21px;
+  @media screen and (max-width: 1000px) {
+    padding-top: 27px;
+    height: 27px;
+  }
 }
 .logoHide {
   top: $padding;
@@ -177,6 +193,10 @@ body {
   height: 21px;
   width: 160px;
   padding-top: 21px;
+  @media screen and (max-width: 1000px) {
+    padding-top: 27px;
+    height: 27px;
+  }
   .logo {
     opacity: 1 !important;
   }
@@ -192,6 +212,9 @@ body {
     height: 21px;
     width: 11px;
     background-color: black;
+    @media screen and (max-width: 1000px) {
+      height: 27px;
+    }
   }
 }
 .divCont {
@@ -203,6 +226,9 @@ body {
     .divCont {
       transform: translateY(-42px) !important;
       background-color: red;
+      @media screen and (max-width: 800px) {
+        transform: translateY(-54px) !important;
+      }
     }
   }
 }
