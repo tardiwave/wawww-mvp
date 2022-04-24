@@ -4,7 +4,7 @@ import anime from "animejs";
 import isMobile from "./utils/mobileDetect";
 new Experience(document.getElementById("canvas") as HTMLCanvasElement);
 let offset = 21;
-if(window.innerWidth < 1000) offset = 27;
+if (window.innerWidth < 1000) offset = 27;
 anime({
   targets: ".divCont",
   translateY: -offset,
@@ -23,3 +23,11 @@ if (isMobile()) {
   let element = document.body;
   element.classList.add("mobile");
 }
+
+const mailToClipboard = () => {
+  var copyText = "hello@studiowawww.com";
+  navigator.clipboard.writeText(copyText);
+};
+
+const mail = document.getElementById("mail");
+if (mail) mail.addEventListener("click", mailToClipboard);

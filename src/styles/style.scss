@@ -156,6 +156,11 @@ body {
       content: "LinkedIn";
     }
   }
+  .mail {
+    &::after {
+      content: "Mail";
+    }
+  }
   .fs {
     &::before {
       content: "";
@@ -233,6 +238,7 @@ body {
   }
 }
 .mobileMail {
+  cursor: pointer;
   display: none;
 }
 @media screen and (max-width: 1000px) {
