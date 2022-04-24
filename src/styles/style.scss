@@ -170,6 +170,7 @@ body {
   }
 }
 .mailHide {
+  cursor: pointer;
   bottom: $padding;
   left: $padding;
   overflow: hidden;
@@ -261,5 +262,81 @@ body {
   }
   .mobileMail {
     display: block;
+  }
+}
+
+#ctcCont {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  .ctc {
+    color: white !important;
+    font-family: "Degular";
+    font-size: 1rem;
+    padding: $padding;
+    position: relative;
+    z-index: 0;
+    width: 400px;
+    max-width: 90vw;
+    overflow: hidden;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      left: -100%;
+      top: -calc(100% * 3 / 4 * 2);
+      width: 300%;
+      height: 500%;
+      background-color: #ffffff;
+      background-repeat: no-repeat;
+      background-size: 50% 50%, 50% 50%;
+      background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+      background-image: linear-gradient(#ffffff, #000000),
+        linear-gradient(#ffffff, #000000), linear-gradient(#ffffff, #000000),
+        linear-gradient(#ffffff, #000000);
+      animation: rotate 12s linear infinite;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: 2px;
+      top: 2px;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      background: rgba($color: #000000, $alpha: 1);
+    }
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .hideNotif {
+      overflow: hidden;
+      width: fit-content;
+    }
+    .hideText {
+      transform: translateY(10px);
+      width: fit-content;
+    }
+  }
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
   }
 }

@@ -126,7 +126,7 @@ export default class Logo {
         targets: this.logo?.position,
         x: [-8, 0],
         z: [12, 0],
-        duration: 2000,
+        duration: 4000,
         easing: "easeInOutQuad",
         complete: () => (this.isEntryFinished = true),
       });
@@ -135,7 +135,7 @@ export default class Logo {
         x: [this.scale, this.scale],
         y: [this.scale, this.scale],
         z: [this.scale, this.scale],
-        duration: 2000,
+        duration: 4000,
         easing: "easeInOutQuad",
         complete: () => (this.isEntryFinished = true),
       });

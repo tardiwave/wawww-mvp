@@ -27,7 +27,38 @@ if (isMobile()) {
 const mailToClipboard = () => {
   var copyText = "hello@studiowawww.com";
   navigator.clipboard.writeText(copyText);
+  const notif = document.getElementById("ctcCont");
+  if (notif) {
+    const tl = anime.timeline({});
+    tl.add(
+      {
+        targets: notif.style,
+        opacity: [0, 1],
+        duration: 3000,
+      },
+      0
+    );
+    tl.add(
+      {
+        targets: ".hideText",
+        translateY: [21, 0],
+        duration: 700,
+        easing: "easeInOutQuad",
+      },
+      0
+    );
+    tl.add(
+      {
+        targets: notif.style,
+        opacity: [1, 0],
+        duration: 3000,
+      },
+      2000
+    );
+  }
 };
 
-const mail = document.getElementById("mail");
-if (mail) mail.addEventListener("click", mailToClipboard);
+const mobileMail = document.getElementById("mobileMail");
+if (mobileMail) mobileMail.addEventListener("click", mailToClipboard);
+const desktopMail = document.getElementById("desktopMail");
+if (desktopMail) desktopMail.addEventListener("click", mailToClipboard);
