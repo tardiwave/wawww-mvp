@@ -287,9 +287,9 @@ export default class Logo {
 
       if (isMobile() || window.innerWidth < 1000) {
         if (y > 0) {
-          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
+          this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
         } else {
-          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
+          this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
         }
         if (x > 0) {
           this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
