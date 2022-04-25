@@ -127,7 +127,7 @@ export default class Logo {
         x: [-4, 0],
         z: [6, 0],
         duration: 2000,
-        easing: "easeInExpo",
+        easing: "easeInOutQuad",
         complete: () => (this.isEntryFinished = true),
       });
       anime({
@@ -136,7 +136,7 @@ export default class Logo {
         y: [this.scale, this.scale],
         z: [this.scale, this.scale],
         duration: 4000,
-        easing: "easeInExpo",
+        easing: "easeInOutQuad",
         complete: () => (this.isEntryFinished = true),
       });
     } else {
@@ -144,7 +144,7 @@ export default class Logo {
         targets: this.logo?.position,
         y: [-3, 0],
         duration: 200,
-        easing: "easeInExpo",
+        easing: "easeInOutQuad",
         complete: () => (this.isEntryFinished = true),
       });
       anime({
@@ -153,7 +153,7 @@ export default class Logo {
         y: [0, this.scale],
         z: [0, this.scale],
         duration: 2000,
-        easing: "easeInExpo",
+        easing: "easeInOutQuad",
         complete: () => (this.isEntryFinished = true),
       });
     }
