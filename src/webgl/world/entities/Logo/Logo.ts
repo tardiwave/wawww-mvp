@@ -283,7 +283,6 @@ export default class Logo {
       (this.mouse.top - window.innerHeight / 2) / (window.innerHeight / 2);
     // console.log(x);
     if (this.logo && this.isEntryFinished) {
-      const coef = 100000;
 
       if (isMobile() || window.innerWidth < 1000) {
         if (y > 0) {
