@@ -29,6 +29,8 @@ export default class Logo {
   private currentColor: "white" | "pink" = "white";
   private isEntryFinished = false;
   private scale = 20;
+  private isReflecting = false;
+  private arriveOffset = 0;
 
   constructor() {
     if (this.debug.active) {
@@ -41,6 +43,7 @@ export default class Logo {
     this.setDebug();
     this.entry();
     this.sizes.on("resize", () => this.resize());
+    this.mouse.on("mousedown", () => this.reflect());
     // this.mouse.on("mousedown", () => this.switchColor());
   }
   setMaterial() {
@@ -48,6 +51,15 @@ export default class Logo {
       uniforms: {
         time: {
           value: 0,
+        },
+        reflect: {
+          value: 0,
+        },
+        isMobile: {
+          value: false,
+        },
+        isEntryFinished: {
+          value: false,
         },
       },
       vertexShader: fillVertex,
@@ -72,6 +84,21 @@ export default class Logo {
       fragmentShader: WFFragment,
     });
   }
+  reflect() {
+    if (this.fillMaterial && !this.isReflecting && this.isEntryFinished)
+      anime({
+        targets: this.fillMaterial.uniforms.reflect,
+        value: [0, 1],
+        duration: 1500,
+        easing: "easeInOutQuad",
+        begin: () => {
+          this.isReflecting = true;
+        },
+        complete: () => {
+          this.isReflecting = false;
+        },
+      });
+  }
 
   setScale() {
     const w = window.innerWidth;
@@ -94,6 +121,7 @@ export default class Logo {
       if (w > 1600) {
         this.scale = 2.0;
       }
+      this.arriveOffset = 0;
     } else {
       if (w > 300) {
         this.scale = 0.2;
@@ -103,15 +131,19 @@ export default class Logo {
       }
       if (w > 750) {
         this.scale = 0.5;
+        this.arriveOffset = 0.5;
       }
       if (w > 1100) {
         this.scale = 0.7;
+        this.arriveOffset = 0.7;
       }
       if (w > 1400) {
         this.scale = 0.8;
+        this.arriveOffset = 0.8;
       }
       if (w > 1600) {
         this.scale = 0.9;
+        this.arriveOffset = 0.9
       }
     }
 
@@ -125,6 +157,7 @@ export default class Logo {
       anime({
         targets: this.logo?.position,
         x: [-4, 0],
+        y: [0, 0],
         z: [6, 0],
         duration: 2000,
         easing: "easeInOutQuad",
@@ -135,26 +168,30 @@ export default class Logo {
         x: [this.scale, this.scale],
         y: [this.scale, this.scale],
         z: [this.scale, this.scale],
-        duration: 4000,
+        duration: 2000,
         easing: "easeInOutQuad",
-        complete: () => (this.isEntryFinished = true),
+        complete: () => {
+          this.isEntryFinished = true;
+          this.reflect();
+        },
       });
     } else {
       anime({
         targets: this.logo?.position,
-        y: [-3, 0],
-        duration: 200,
+        y: [7, 0],
+        duration: 5000,
         easing: "easeInOutQuad",
-        complete: () => (this.isEntryFinished = true),
+        complete: () => {
+          this.isEntryFinished = true;
+          this.reflect();
+        },
       });
       anime({
-        targets: this.logo?.scale,
-        x: [0, this.scale],
-        y: [0, this.scale],
-        z: [0, this.scale],
-        duration: 2000,
+        targets: this.logo?.position,
+        x: [this.arriveOffset, 0],
+        delay: 1000,
+        duration: 4000,
         easing: "easeInOutQuad",
-        complete: () => (this.isEntryFinished = true),
       });
     }
   }
@@ -178,8 +215,8 @@ export default class Logo {
         });
         if (this.logo) this.logo.add(mesh);
       });
-      this.logo.position.set(0, -3, 0);
-      this.logo.scale.set(0, 0, 0);
+      this.logo.position.set(this.arriveOffset, 7, 0);
+      this.logo.scale.set(this.scale, this.scale, this.scale);
       if (isMobile() || window.innerWidth < 1000) {
         this.logo.rotation.y = 1;
       }
@@ -243,25 +280,30 @@ export default class Logo {
     if (this.logo && this.isEntryFinished) {
       const coef = 100000;
       this.logo.rotation.x +=
-        ((this.mouse.webglX * coef) / 2 - this.logo?.rotation.x) * 0.05;
+        ((this.mouse.webglX * coef) / 2 - this.logo?.rotation.x) * 0.03;
       if (isMobile() || window.innerWidth < 1000) {
         if (this.mouse.webglX > 0) {
           this.logo.rotation.y +=
-            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) * 0.05;
+            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) * 0.03;
         } else {
           this.logo.rotation.y +=
             ((-this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) *
             0.05;
         }
+        if (this.fillMaterial) this.fillMaterial.uniforms.isMobile.value = true;
       } else {
         if (this.mouse.webglX > 0) {
           this.logo.rotation.y +=
-            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.05;
+            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.03;
         } else {
           this.logo.rotation.y +=
-            ((-this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.05;
+            ((-this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.03;
         }
+        if (this.fillMaterial)
+          this.fillMaterial.uniforms.isMobile.value = false;
       }
+      if (this.fillMaterial)
+        this.fillMaterial.uniforms.isEntryFinished.value = this.isEntryFinished;
     }
   }
 
