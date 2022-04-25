@@ -34,7 +34,7 @@ export default class Camera {
       this.instance as threeCamera,
       this.canvas as HTMLCanvasElement
     );
-    this.controls.enableDamping = true;
+    this.controls.enableDamping = false;
     this.controls.enabled = false;
   }
 
