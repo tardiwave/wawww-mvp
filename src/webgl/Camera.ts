@@ -35,7 +35,7 @@ export default class Camera {
       this.canvas as HTMLCanvasElement
     );
     this.controls.enableDamping = true;
-    this.controls.enabled = true;
+    this.controls.enabled = false;
   }
 
   resize() {

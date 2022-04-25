@@ -143,7 +143,7 @@ export default class Logo {
       }
       if (w > 1600) {
         this.scale = 0.9;
-        this.arriveOffset = 0.9
+        this.arriveOffset = 0.9;
       }
     }
 
@@ -277,28 +277,40 @@ export default class Logo {
         }
       });
     }
+    const x =
+      (this.mouse.left - window.innerWidth / 2) / (window.innerWidth / 2);
+    const y =
+      (this.mouse.top - window.innerHeight / 2) / (window.innerHeight / 2);
+    // console.log(x);
     if (this.logo && this.isEntryFinished) {
       const coef = 100000;
-      this.logo.rotation.x +=
-        ((this.mouse.webglX * coef) / 2 - this.logo?.rotation.x) * 0.03;
+
       if (isMobile() || window.innerWidth < 1000) {
-        if (this.mouse.webglX > 0) {
-          this.logo.rotation.y +=
-            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) * 0.03;
+        if (y > 0) {
+          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
         } else {
-          this.logo.rotation.y +=
-            ((-this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) *
-            0.05;
+          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
         }
+        if (x > 0) {
+          this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
+        } else {
+          this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
+        }
+        this.logo.rotation.y = 1;
         if (this.fillMaterial) this.fillMaterial.uniforms.isMobile.value = true;
       } else {
-        if (this.mouse.webglX > 0) {
-          this.logo.rotation.y +=
-            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.03;
+        if (y > 0) {
+          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
         } else {
-          this.logo.rotation.y +=
-            ((-this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.03;
+          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
         }
+        if (x > 0) {
+          this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
+        } else {
+          this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
+        }
+        this.logo.rotation.y = 0;
+
         if (this.fillMaterial)
           this.fillMaterial.uniforms.isMobile.value = false;
       }
