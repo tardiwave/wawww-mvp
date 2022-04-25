@@ -8,14 +8,15 @@ if (window.innerWidth < 1000) offset = 27;
 anime({
   targets: ".divCont",
   translateY: -offset,
-  duration: 1400,
-  easing: "easeInOutQuad",
+  duration: 700,
+  easing: "easeOutCirc",
+  delay: 700,
 });
 anime({
   targets: ".socialHideSeparator",
   height: [offset, 0],
   duration: 1400,
-  easing: "easeInOutQuad",
+  easing: "easeOutCirc",
   delay: 700,
 });
 

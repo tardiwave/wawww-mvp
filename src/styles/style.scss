@@ -161,6 +161,12 @@ body {
       content: "Mail";
     }
   }
+  .email {
+    &::after {
+      content: "hello@studiowawww.com";
+    }
+  }
+
   .fs {
     &::before {
       content: "";
@@ -207,7 +213,8 @@ body {
     opacity: 1 !important;
   }
 }
-.socialHide {
+.socialHide,
+.mailHide {
   overflow: hidden;
 }
 .socialHideSeparatorCont {
@@ -231,7 +238,6 @@ body {
   &:hover {
     .divCont {
       transform: translateY(-42px) !important;
-      background-color: red;
       @media screen and (max-width: 800px) {
         transform: translateY(-54px) !important;
       }

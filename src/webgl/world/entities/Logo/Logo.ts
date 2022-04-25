@@ -124,10 +124,10 @@ export default class Logo {
     if (isMobile() || window.innerWidth < 1000) {
       anime({
         targets: this.logo?.position,
-        x: [-8, 0],
-        z: [12, 0],
-        duration: 4000,
-        easing: "easeInOutQuad",
+        x: [-4, 0],
+        z: [6, 0],
+        duration: 2000,
+        easing: "easeInExpo",
         complete: () => (this.isEntryFinished = true),
       });
       anime({
@@ -136,7 +136,7 @@ export default class Logo {
         y: [this.scale, this.scale],
         z: [this.scale, this.scale],
         duration: 4000,
-        easing: "easeInOutQuad",
+        easing: "easeInExpo",
         complete: () => (this.isEntryFinished = true),
       });
     } else {
@@ -144,7 +144,7 @@ export default class Logo {
         targets: this.logo?.position,
         y: [-3, 0],
         duration: 200,
-        easing: "easeInOutQuad",
+        easing: "easeInExpo",
         complete: () => (this.isEntryFinished = true),
       });
       anime({
@@ -153,7 +153,7 @@ export default class Logo {
         y: [0, this.scale],
         z: [0, this.scale],
         duration: 2000,
-        easing: "easeInOutQuad",
+        easing: "easeInExpo",
         complete: () => (this.isEntryFinished = true),
       });
     }
