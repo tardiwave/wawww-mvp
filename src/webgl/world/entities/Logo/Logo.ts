@@ -245,11 +245,22 @@ export default class Logo {
       this.logo.rotation.x +=
         ((this.mouse.webglX * coef) / 2 - this.logo?.rotation.x) * 0.05;
       if (isMobile() || window.innerWidth < 1000) {
-        this.logo.rotation.y +=
-          ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) * 0.05;
+        if (this.mouse.webglX > 0) {
+          this.logo.rotation.y +=
+            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) * 0.05;
+        } else {
+          this.logo.rotation.y +=
+            ((-this.mouse.webglY * coef) / 2 - this.logo?.rotation.y + 1) *
+            0.05;
+        }
       } else {
-        this.logo.rotation.y +=
-          ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.05;
+        if (this.mouse.webglX > 0) {
+          this.logo.rotation.y +=
+            ((this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.05;
+        } else {
+          this.logo.rotation.y +=
+            ((-this.mouse.webglY * coef) / 2 - this.logo?.rotation.y) * 0.05;
+        }
       }
     }
   }

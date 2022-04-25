@@ -44,7 +44,7 @@ const mailToClipboard = () => {
         targets: ".hideText",
         translateY: [21, 0],
         duration: 700,
-        easing: "easeInOutQuad",
+        easing: "easeOutCirc",
       },
       0
     );

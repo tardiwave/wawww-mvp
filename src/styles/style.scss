@@ -161,11 +161,6 @@ body {
       content: "Mail";
     }
   }
-  .email {
-    &::after {
-      content: "hello@studiowawww.com";
-    }
-  }
 
   .fs {
     &::before {
@@ -231,14 +226,14 @@ body {
   }
 }
 .divCont {
-  transition-duration: 0.7s;
-  transition-timing-function: ease-in-out;
+  transition-duration: 0.35s;
 }
-.socialHide {
+.socialHide,
+.mailHide {
   &:hover {
     .divCont {
       transform: translateY(-42px) !important;
-      @media screen and (max-width: 800px) {
+      @media screen and (max-width: 1000px) {
         transform: translateY(-54px) !important;
       }
     }
@@ -344,5 +339,20 @@ body {
 @keyframes rotate {
   100% {
     transform: rotate(1turn);
+  }
+}
+#desktopMail {
+  height: 21px;
+  padding-top: 21px;
+  @media screen and (max-width: 1000px) {
+    padding-top: 27px;
+    height: 27px;
+  }
+  .email {
+    display: flex;
+    flex-direction: column;
+    &::after {
+      content: "hello@studiowawww.com";
+    }
   }
 }
