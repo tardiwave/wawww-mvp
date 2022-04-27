@@ -30,6 +30,7 @@ export default class Logo {
   private isEntryFinished = false;
   private scale = 20;
   private isReflecting = false;
+  private gyroPresent = false;
   private arriveOffset = 0;
 
   constructor() {
@@ -45,6 +46,26 @@ export default class Logo {
     this.sizes.on("resize", () => this.resize());
     this.mouse.on("mousedown", () => this.reflect());
     // this.mouse.on("mousedown", () => this.switchColor());
+
+    window.addEventListener("devicemotion", (event) => {
+      if (event.rotationRate)
+        if (
+          event.rotationRate.alpha ||
+          event.rotationRate.beta ||
+          event.rotationRate.gamma
+        ) {
+          this.gyroPresent = true;
+          console.log("coucouc");
+          window.addEventListener(
+            "deviceorientation",
+            this.handleOrientation,
+            true
+          );
+        }
+    });
+  }
+  handleOrientation(e: any) {
+    console.log(e);
   }
   setMaterial() {
     this.fillMaterial = new ShaderMaterial({
@@ -283,7 +304,6 @@ export default class Logo {
       (this.mouse.top - window.innerHeight / 2) / (window.innerHeight / 2);
     // console.log(x);
     if (this.logo && this.isEntryFinished) {
-
       if (isMobile() || window.innerWidth < 1000) {
         if (y > 0) {
           this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;

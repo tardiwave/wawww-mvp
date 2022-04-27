@@ -1,0 +1,4 @@
+# Allow all user agents.
+User-agent: * 
+Disallow:
+Sitemap: https://www.studiowawww.com/sitemap.xml
