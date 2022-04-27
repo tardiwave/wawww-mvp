@@ -30,7 +30,7 @@ export default class Logo {
   private isEntryFinished = false;
   private scale = 20;
   private isReflecting = false;
-  private gyroPresent = false;
+  // private gyroPresent = false;
   private arriveOffset = 0;
 
   constructor() {
@@ -54,7 +54,7 @@ export default class Logo {
           event.rotationRate.beta ||
           event.rotationRate.gamma
         ) {
-          this.gyroPresent = true;
+          // this.gyroPresent = true;
           console.log("coucouc");
           window.addEventListener(
             "deviceorientation",
