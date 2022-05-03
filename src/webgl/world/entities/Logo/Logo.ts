@@ -12,6 +12,7 @@ import Mouse from "../../../../utils/Mouse";
 import anime from "animejs";
 import Sizes from "../../../../utils/Sizes";
 import isMobile from "../../../../utils/mobileDetect";
+import AccelerometerCTRL from "../../../../utils/AccelerometerCTRL";
 
 export default class Logo {
   private experience: Experience = new Experience();
@@ -30,6 +31,8 @@ export default class Logo {
   private isEntryFinished = false;
   private scale = 20;
   private isReflecting = false;
+  private accelerometerCTRL: AccelerometerCTRL = this.experience
+    .accelerometerCTRL as AccelerometerCTRL;
   // private gyroPresent = false;
   private arriveOffset = 0;
 
@@ -45,28 +48,10 @@ export default class Logo {
     this.entry();
     this.sizes.on("resize", () => this.resize());
     this.mouse.on("mousedown", () => this.reflect());
-    // this.mouse.on("mousedown", () => this.switchColor());
 
-    window.addEventListener("devicemotion", (event) => {
-      if (event.rotationRate)
-        if (
-          event.rotationRate.alpha ||
-          event.rotationRate.beta ||
-          event.rotationRate.gamma
-        ) {
-          // this.gyroPresent = true;
-          console.log("coucouc");
-          window.addEventListener(
-            "deviceorientation",
-            this.handleOrientation,
-            true
-          );
-        }
-    });
+    this.accelerometerCTRL.on("deviceorientation", this.deviceMove);
   }
-  handleOrientation(e: any) {
-    console.log(e);
-  }
+  deviceMove() {}
   setMaterial() {
     this.fillMaterial = new ShaderMaterial({
       uniforms: {
@@ -298,38 +283,46 @@ export default class Logo {
         }
       });
     }
+
     const x =
       (this.mouse.left - window.innerWidth / 2) / (window.innerWidth / 2);
     const y =
       (this.mouse.top - window.innerHeight / 2) / (window.innerHeight / 2);
     // console.log(x);
     if (this.logo && this.isEntryFinished) {
+      if (!this.accelerometerCTRL.isSupported) {
+        if (isMobile() || window.innerWidth < 1000) {
+          if (y > 0) {
+            this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
+          } else {
+            this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
+          }
+          if (x > 0) {
+            this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
+          } else {
+            this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
+          }
+          this.logo.rotation.y = 1;
+        } else {
+          if (y > 0) {
+            this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
+          } else {
+            this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
+          }
+          if (x > 0) {
+            this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
+          } else {
+            this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
+          }
+          this.logo.rotation.y = 0;
+        }
+      } else {
+        this.logo.rotation.x = this.accelerometerCTRL.orientation.x * 0.03;
+        this.logo.rotation.z = this.accelerometerCTRL.orientation.y * 0.03;
+      }
       if (isMobile() || window.innerWidth < 1000) {
-        if (y > 0) {
-          this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
-        } else {
-          this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
-        }
-        if (x > 0) {
-          this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
-        } else {
-          this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
-        }
-        this.logo.rotation.y = 1;
         if (this.fillMaterial) this.fillMaterial.uniforms.isMobile.value = true;
       } else {
-        if (y > 0) {
-          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
-        } else {
-          this.logo.rotation.x += (y * 0.5 - this.logo?.rotation.x) * 0.03;
-        }
-        if (x > 0) {
-          this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
-        } else {
-          this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
-        }
-        this.logo.rotation.y = 0;
-
         if (this.fillMaterial)
           this.fillMaterial.uniforms.isMobile.value = false;
       }

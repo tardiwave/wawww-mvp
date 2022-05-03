@@ -11,6 +11,7 @@ import Sources from "./world/sources";
 import Loaders from "../utils/Loaders";
 import Debug from "../utils/debug/Debug";
 import Mouse from "../utils/Mouse";
+import AccelerometerCTRL from "../utils/AccelerometerCTRL";
 
 declare global {
   interface Window {
@@ -28,6 +29,7 @@ export default class Experience {
   public time: Time | null = null;
   public debug: Debug | null = null;
   public mouse: Mouse | null = null;
+  public accelerometerCTRL: AccelerometerCTRL | null = null;
 
   public scene: Scene | null = null;
   public camera: Camera | null = null;
@@ -51,6 +53,7 @@ export default class Experience {
     this.mouse = new Mouse();
     this.time = new Time();
     this.debug = new Debug();
+    this.accelerometerCTRL = new AccelerometerCTRL();
     this.scene = new Scene();
     this.scene.background = new Color(0x000000);
     // this.scene.background = new Color(0xfe2458);
@@ -84,6 +87,7 @@ export default class Experience {
     this.camera?.destroy();
     this.renderer?.destroy();
     this.world?.destroy();
+    this.accelerometerCTRL?.destroy();
 
     if (this.debug?.active) {
       this.debug.destroy();
