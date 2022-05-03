@@ -317,7 +317,7 @@ export default class Logo {
           this.logo.rotation.y = 0;
         }
       } else {
-        this.logo.rotation.x = this.accelerometerCTRL.orientation.x * 0.1;
+        this.logo.rotation.x = -this.accelerometerCTRL.orientation.x * 0.1;
         this.logo.rotation.z = this.accelerometerCTRL.orientation.y * 0.1;
       }
       if (isMobile() || window.innerWidth < 1000) {
