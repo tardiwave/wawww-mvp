@@ -292,15 +292,15 @@ export default class Logo {
     if (this.logo && this.isEntryFinished) {
       if (!this.accelerometerCTRL.isSupported) {
         if (isMobile() || window.innerWidth < 1000) {
-          if (y > 0) {
-            this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
-          } else {
-            this.logo.rotation.x += (y * 0.05 - this.logo?.rotation.x) * 0.03;
-          }
+            if (y > 0) {
+              this.logo.rotation.x += (y * 0.02 - this.logo?.rotation.x) * 0.03;
+            } else {
+              this.logo.rotation.x += (y * 0.02 - this.logo?.rotation.x) * 0.03;
+            }
           if (x > 0) {
-            this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
+            this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
           } else {
-            this.logo.rotation.z += (x * 0.5 - this.logo?.rotation.z) * 0.03;
+            this.logo.rotation.z += (x * 0.2 - this.logo?.rotation.z) * 0.03;
           }
           this.logo.rotation.y = 1;
         } else {
