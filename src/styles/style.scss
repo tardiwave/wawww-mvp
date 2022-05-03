@@ -255,8 +255,10 @@ body {
   .socials {
     flex-direction: column;
   }
-  .WUC {
-    display: none;
+  .WUCHide {
+    // display: none;
+    top: 70px;
+    left: 40px;
   }
   .email {
     display: none;
