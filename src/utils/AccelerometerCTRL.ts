@@ -6,27 +6,11 @@ export default class AccelerometerCTRL extends EventEmitter {
   public orientation = new Vector2();
   constructor() {
     super();
-    if (
-      typeof DeviceOrientationEvent !== "undefined" &&
-      typeof (DeviceOrientationEvent as any).requestPermission === "function"
-    ) {
-      (DeviceOrientationEvent as any)
-        .requestPermission()
-        .then((response: any) => {
-          if (response == "granted") {
-            window.addEventListener(
-              "deviceorientation",
-              this.handleDeviceMotion.bind(this)
-            );
-          }
-        });
-    } else {
-      if (window.DeviceOrientationEvent) {
-        window.addEventListener(
-          "deviceorientation",
-          this.handleDeviceMotion.bind(this)
-        );
-      }
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener(
+        "deviceorientation",
+        this.handleDeviceMotion.bind(this)
+      );
     }
   }
 
