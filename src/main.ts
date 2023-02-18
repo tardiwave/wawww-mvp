@@ -26,7 +26,7 @@ if (isMobile()) {
 }
 
 const mailToClipboard = () => {
-  var copyText = "hello@studiowawww.com";
+  var copyText = "hello@wawww.studio";
   navigator.clipboard.writeText(copyText);
   const notif = document.getElementById("ctcCont");
   if (notif) {
